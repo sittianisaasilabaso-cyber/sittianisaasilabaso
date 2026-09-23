@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Kelompok 6 - Pemrograman Web</title>
+    <style>
+        /* CSS untuk tampilan yang modern dan responsif */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebe1 0%, #d4a5ec 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 420px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        h3 {
+            color: #6c757d;
+            font-weight: 400;
+            margin-top: 0;
+        }
+        .member-list {
+            text-align: left;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+        .member-list li {
+            padding: 6px 0;
+            color: #495057;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #5a32a3;
+            transform: scale(1.05);
+        }
+        #alert-box {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #28a745;
+            display: none;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Kelompok 6</h1>
+        <h3>Tugas Pemrograman Web</h3>
+        
+        <p style="font-weight: bold; color: #333; text-align: left; margin-bottom: 5px;">Anggota Kelompok:</p>
+        <ul class="member-list">
+            <li>Sitti Anizya Azila Baso</li>
+            <li>Khamila Amaliah</li>
+            <li>Nurwahyuni</li>
+            <li>Susan Ristina</li>
+            <li>Alda Miranda</li>
+        </ul>
+
+        <!-- JavaScript akan dipicu saat tombol ini diklik -->
+        <button class="btn" onclick="sapaKelompok()">Klik di Sini</button>
+        <div id="alert-box">Halo Kelompok 6! Selamat belajar Pemrograman Web! ✨</div>
+    </div>
+
+    <script>
+        // JavaScript untuk interaksi tombol
+        function sapaKelompok() {
+            var box = document.getElementById("alert-box");
+            if (box.style.display === "none" || box.style.display === "") {
+                box.style.display = "block";
+            } else {
+                box.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
