@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Portfolio - Finance Tracker Dashboard</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            padding: 40px 20px;
+            color: var(--dark);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 { margin: 0; color: var(--primary); font-size: 2rem; }
+        .header p { color: #6b7280; margin-top: 5px; }
+        
+        /* Grid Kartu Saldo */
+        .balance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        .card h3 { margin: 0; font-size: 0.9rem; color: #6b7280; text-transform: uppercase; }
+        .card p { margin: 10px 0 0 0; font-size: 1.75rem; font-weight: 700; }
+        .text-primary { color: var(--primary); }
+        .text-success { color: var(--success); }
+        .text-danger { color: var(--danger); }
+
+        /* Area Konten Utama */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        @media (max-width: 768px) {
+            .main-content { grid-template-columns: 1fr; }
+        }
+
+        /* Form */
+        form { display: flex; flex-direction: column; gap: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        label { font-size: 0.9rem; font-weight: 500; }
+        input, select {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1px;
+            font-size: 0.95rem;
+        }
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover { background-color: #3730a3; }
+
+        /* Daftar Riwayat */
+        .history-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+        .history-item {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            border-left: 4px solid #d1d5db;
+        }
+        .history-item.plus { border-left-color: var(--success); }
+        .history-item.minus { border-left-color: var(--danger); }
+        .item-title { font-weight: 500; }
+        .item-amount { font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Personal Finance Dashboard</h1>
+        <p>Portfolio Project - Rancang Bangun Aplikasi Pengelola Keuangan Dinamis</p>
+    </div>
+
+    <!-- Tampilan Dashboard Utama -->
+    <div class="balance-grid">
+        <div class="card">
+            <h3>Total Saldo</h3>
+            <p id="total-balance" class="text-primary">Rp 0</p>
+        </div>
+        <div class="card">
+            <h3>Total Pemasukan</h3>
+            <p id="total-income" class="text-success">Rp 0</p>
+        </div>
+        <div class="card">
+            <h3>Total Pengeluaran</h3>
+            <p id="total-expense" class="text-danger">Rp 0</p>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- Bagian Input -->
+        <div class="card">
+            <h2 style="margin-top:0; font-size: 1.2rem; margin-bottom: 20px;">Tambah Transaksi Baru</h2>
+            <form id="transaction-form">
+                <div class="form-group">
+                    <label for="text">Deskripsi Transaksi</label>
+                    <input type="text" id="text" placeholder="Contoh: Gaji Pokok, Beli Buku..." required>
+                </div>
+                <div class="form-group">
+                    <label for="type">Jenis Transaksi</label>
+                    <select id="type">
+                        <option value="income">Pemasukan (+)</option>
+                        <option value="expense">Pengeluaran (-)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Jumlah (Rp)</label>
+                    <input type="number" id="amount" placeholder="Masukkan nominal angka..." required>
+                </div>
+                <button type="submit">Catat Transaksi</button>
+            </form>
+        </div>
+
+        <!-- Bagian Riwayat -->
+        <div class="card">
+            <h2 style="margin-top:0; font-size: 1.2rem; margin-bottom: 20px;">Riwayat Aktivitas</h2>
+            <ul id="history-list" class="history-list">
+                <!-- Item data akan dimasukkan secara dinamis oleh JavaScript -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const balanceEl = document.getElementById('total-balance');
+    const incomeEl = document.getElementById('total-income');
+    const expenseEl = document.getElementById('total-expense');
+    const form = document.getElementById('transaction-form');
+    const textInput = document.getElementById('text');
+    const typeInput = document.getElementById('type');
+    const amountInput = document.getElementById('amount');
+    const historyList = document.getElementById('history-list');
+
+    let transactions = [
+        { id: 1, text: 'Project Freelance Web', amount: 2500000, type: 'income' },
+        { id: 2, text: 'Langganan Cloud Server', amount: 150000, type: 'expense' }
+    ];
+
+    function updateDashboard() {
+        let income = 0;
+        let expense = 0;
+
+        historyList.innerHTML = '';
+
+        transactions.forEach(transaction => {
+            const item = document.createElement('li');
+            item.classList.add('history-item', transaction.type === 'income' ? 'plus' : 'minus');
+            
+            const sign = transaction.type === 'income' ? '+' : '-';
+            item.innerHTML = `
+                <span class="item-title">${transaction.text}</span>
+                <span class="item-amount ${transaction.type === 'income' ? 'text-success' : 'text-danger'}">
+                    ${sign} Rp ${transaction.amount.toLocaleString('id-ID')}
+                </span>
+            `;
+            historyList.appendChild(item);
+
+            if (transaction.type === 'income') {
+                income += transaction.amount;
+            } else {
+                expense += transaction.amount;
+            }
+        });
+
+        const totalBalance = income - expense;
+
+        balanceEl.innerText = `Rp ${totalBalance.toLocaleString('id-ID')}`;
+        incomeEl.innerText = `Rp ${income.toLocaleString('id-ID')}`;
+        expenseEl.innerText = `Rp ${expense.toLocaleString('id-ID')}`;
+    }
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const newTransaction = {
+            id: Date.now(),
+            text: textInput.value,
+            amount: parseInt(amountInput.value),
+            type: typeInput.value
+        };
+
+        transactions.unshift(newTransaction);
+        updateDashboard();
+
+        textInput.value = '';
+        amountInput.value = '';
+    });
+
+    // Inisialisasi awal dashboard saat dimuat
+    updateDashboard();
+</script>
+
+</body>
+</html>
