@@ -1,0 +1,133 @@
+cat << 'EOF' > index.html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Diri - Sitti Anizya Azila Baso</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #bae6fd 100%);
+            background-attachment: fixed;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.15);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .avatar-area {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #0284c7, #38bdf8);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            font-weight: bold;
+            box-shadow: 0 8px 16px rgba(2, 132, 199, 0.2);
+        }
+
+        h2 {
+            color: #0369a1;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .info-group {
+            text-align: left;
+            background: rgba(240, 249, 255, 0.6);
+            border-left: 4px solid #0284c7;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #0284c7;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            color: #334155;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="avatar-area">SA</div>
+        
+        <h2>Sitti Anizya Azila Baso</h2>
+        <div class="subtitle">Mahasiswa</div>
+
+        <div class="info-group">
+            <div class="info-label">NIM / NIK</div>
+            <div class="info-value">2511038</div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">Program Studi</div>
+            <div class="info-value">Informatika</div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">Universitas</div>
+            <div class="info-value">Universitas Mega Buana Palopo</div>
+        </div>
+
+        <div class="footer">
+            © 2026 Personal Profile Page
+        </div>
+    </div>
+
+</body>
+</html>
+EOF
